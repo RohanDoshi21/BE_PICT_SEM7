@@ -8,22 +8,18 @@ contract StudentContract {
     }
 
     Student[] public studentArray;
+    uint256 public totalEtherReceived;
 
-    function addName(string memory _name, uint128 _age) public {
-        Student memory newStud = Student({
-            name : _name,
-            age : _age
-        });
-
-        studentArray.push(newStud);
+    function addName(string memory name, uint128 age) public {
+        studentArray.push(Student(name, age));
     }
 
-    function getStudentLenght() public view returns (uint256) {
+    function getStudentLength() public view returns (uint256) {
         return studentArray.length;
     }
 
-    function getStudent(uint128 _index) public view returns (string memory, uint128) {
-        require(studentArray.length > _index, "Out of Index");
-        return (studentArray[_index].name, studentArray[_index].age);
+    function getStudent(uint128 index) public view returns (Student memory) {
+        require(studentArray.length > index, "Out of Index");
+        return studentArray[index];
     }
 }
