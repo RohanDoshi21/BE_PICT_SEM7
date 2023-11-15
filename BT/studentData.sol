@@ -1,20 +1,29 @@
 // SPDX-License-Identifier: MIT
-pragma solidity 0.8;
+pragma solidity ^0.8.22;
 
-contract StudentContract {
+contract StudentData {
     struct Student {
         string name;
-        uint128 age;
+        int age;
     }
 
     Student[] public studentArray;
-    uint256 public totalEtherReceived;
 
-    function addName(string memory name, uint128 age) public {
+    function addStudent(string memory name, int age) public {
+        for(uint i = 0; i<studentArray.length; i++) {
+            if (studentArray[i].age == age)
+            {
+                revert("Roll No Exists");
+            }
+        }
         studentArray.push(Student(name, age));
     }
 
-    function getStudentLength() public view returns (uint256) {
+    function displayAllStudents() public view returns (Student[] memory) {
+        return studentArray;
+    }
+
+        function getStudentLength() public view returns (uint256) {
         return studentArray.length;
     }
 
@@ -23,3 +32,4 @@ contract StudentContract {
         return studentArray[index];
     }
 }
+
